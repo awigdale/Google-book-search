@@ -1,0 +1,34 @@
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+
+label {
+  font-family: 'Open Sans', sans-serif;
+}
+
+input {
+  width: 75vw;
+  outline: none;
+  height: 5vh;
+}
+
+#submit {
+  width: 6vh;
+  height: 6vh;
+  border-radius: 50%;
+  background: transparent;
+  outline: none;
+}
