@@ -26,9 +26,8 @@ input {
 }
 
 #submit {
-  width: 6vh;
-  height: 6vh;
-  border-radius: 50%;
+  width: 5vw;
+  height: 5vh;
   background: transparent;
   outline: none;
 }

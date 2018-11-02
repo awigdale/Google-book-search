@@ -14,7 +14,9 @@ class Books extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { data } = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchInput}`
+      `https://www.googleapis.com/books/v1/volumes?q=${
+        this.state.searchInput
+      }&startIndex=0&maxResults=15`
     );
     this.setState({ allBooks: data.items });
   }
@@ -30,8 +32,9 @@ class Books extends Component {
             onChange={this.handleChange.bind(this)}
             placeholder="Search by author, title, keywords"
           />
-
-          <button id="submit" onClick={this.handleSubmit.bind(this)} />
+          <button id="submit" onClick={this.handleSubmit.bind(this)}>
+            search
+          </button>
         </form>
         {books.length ? (
           books.map(book => {
