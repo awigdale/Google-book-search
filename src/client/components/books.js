@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Books extends Component {
   state = {
@@ -40,11 +41,13 @@ class Books extends Component {
           books.map(book => {
             return (
               <div key={book.id}>
-                <h1>{book.volumeInfo.title}</h1>
-                <img
-                  src={book.volumeInfo.imageLinks.thumbnail}
-                  alt="no image"
-                />
+                <Link to="/detailedBook">
+                  <h1>{book.volumeInfo.title}</h1>
+                  <img
+                    src={book.volumeInfo.imageLinks.thumbnail}
+                    alt="no image"
+                  />
+                </Link>
                 {book.volumeInfo.publisher && (
                   <p>publisher: {book.volumeInfo.publisher}</p>
                 )}
