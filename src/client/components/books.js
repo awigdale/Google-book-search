@@ -20,20 +20,40 @@ class Books extends Component {
   }
 
   render() {
+    const books = this.state.allBooks;
     return (
       <Fragment>
-        <h1>Books</h1>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <label>
-            search:
-            <input
-              type="text"
-              value={this.state.searchInput}
-              onChange={this.handleChange.bind(this)}
-            />
-          </label>
-          <input type="submit" value="Submit" />
+        <form>
+          <input
+            type="text"
+            value={this.state.searchInput}
+            onChange={this.handleChange.bind(this)}
+            placeholder="Search by author, title, keywords"
+          />
+
+          <button id="submit" onClick={this.handleSubmit.bind(this)} />
         </form>
+        {books.length ? (
+          books.map(book => {
+            return (
+              <div key={book.id}>
+                <h1>{book.volumeInfo.title}</h1>
+                <img
+                  src={book.volumeInfo.imageLinks.thumbnail}
+                  alt="no image"
+                />
+                {book.volumeInfo.publisher && (
+                  <p>publisher: {book.volumeInfo.publisher}</p>
+                )}
+                {book.volumeInfo.authors && (
+                  <p>by: {book.volumeInfo.authors.join(',')}</p>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <div />
+        )}
       </Fragment>
     );
   }
