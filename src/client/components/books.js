@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import axios from 'axios';
 
 class Books extends Component {
   state = {
@@ -10,8 +11,12 @@ class Books extends Component {
     this.setState({ searchInput: event.target.value });
   }
 
-  handleSubmit(event) {
-    //make api request
+  async handleSubmit(event) {
+    event.preventDefault();
+    const { data } = await axios.get(
+      `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchInput}`
+    );
+    this.setState({ allBooks: data.items });
   }
 
   render() {
