@@ -10,6 +10,12 @@ h2 {
   font-weight: 100;
 }
 
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+}
+
 p {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
@@ -30,4 +36,21 @@ input {
   height: 5vh;
   background: transparent;
   outline: none;
+}
+
+a {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  height: 4vh;
+  width: 7vw;
+  border-radius: 5px;
+  background: teal;
+  padding: 10px;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+span {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
 }

@@ -41,8 +41,15 @@ class Books extends Component {
           books.map(book => {
             return (
               <div key={book.id}>
-                <Link to="/detailedBook">
-                  <h1>{book.volumeInfo.title}</h1>
+                <Link
+                  to={{
+                    pathname: `/${book.volumeInfo.title}`,
+                    state: { book },
+                  }}
+                  params={{ book: `${book}` }}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <h2>{book.volumeInfo.title}</h2>
                   <img
                     src={book.volumeInfo.imageLinks.thumbnail}
                     alt="no image"
