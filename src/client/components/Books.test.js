@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Books from './Books';
-import { Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Books component', () => {
   let wrapper;
@@ -18,7 +18,11 @@ describe('Books component', () => {
     expect(handleSubmit).toHaveBeenCalled();
   });
   it('renders a list of books', () => {
-    wrapper = mount(<Books />);
+    wrapper = mount(
+      <Router>
+        <Books />
+      </Router>
+    );
     wrapper.setState({
       allBooks: [
         { volumeInfo: { title: 'harry potter' } },
@@ -29,7 +33,11 @@ describe('Books component', () => {
     expect(wrapper.hasClass('book_container'));
   });
   it('links to single book page', () => {
-    wrapper = mount(<Books />);
+    wrapper = mount(
+      <Router>
+        <Books />
+      </Router>
+    );
     expect(wrapper.find({ to: '/:bookTitle' }));
   });
 });

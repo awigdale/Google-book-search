@@ -49,14 +49,14 @@ class Books extends Component {
           ? books.map(book => {
               return (
                 <div key={book.id} className="book_container">
-                  <a
+                  <Link
                     to={{
                       pathname: `/${book.volumeInfo.title}`,
                       state: { book },
                     }}
                   >
                     <h2>{book.volumeInfo.title}</h2>
-                  </a>
+                  </Link>
                   {book.volumeInfo.imageLinks && (
                     <img src={book.volumeInfo.imageLinks.thumbnail} alt="" />
                   )}
