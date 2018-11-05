@@ -1,37 +1,47 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Item, Image } from 'semantic-ui-react';
 
 const SingleBook = props => {
   const { book } = props.location.state;
   return (
-    <div className="single_book">
-      <h1>{book.volumeInfo.title}</h1>
+    <Item className="single_book">
       {book.volumeInfo.imageLinks && (
-        <img src={`${book.volumeInfo.imageLinks.thumbnail}`} alt="" />
+        <Image
+          size="small"
+          src={`${book.volumeInfo.imageLinks.thumbnail}`}
+          alt=""
+          centered
+        />
       )}
-      {book.volumeInfo.authors && (
-        <h3>by: {book.volumeInfo.authors.join(',')}</h3>
-      )}
-      {book.volumeInfo.averageRating && (
-        <h3>
-          rating: {book.volumeInfo.averageRating}
-          /5
-        </h3>
-      )}
-      {book.volumeInfo.publisher && (
-        <div>
-          <h3>publisher: {book.volumeInfo.publisher}</h3>
-          <p>published date: {book.volumeInfo.publishedDate}</p>
-        </div>
-      )}
-      <p>{book.volumeInfo.description}</p>
-      <br />
+      <Item.Content>
+        <h2>{book.volumeInfo.title}</h2>
+        {book.volumeInfo.authors && (
+          <Item.Meta>by: {book.volumeInfo.authors.join(',')}</Item.Meta>
+        )}
+        {book.volumeInfo.averageRating && (
+          <Item.Meta>
+            rating: {book.volumeInfo.averageRating}
+            /5
+          </Item.Meta>
+        )}
+        {book.volumeInfo.publisher && (
+          <Fragment>
+            <Item.Meta>publisher: {book.volumeInfo.publisher}</Item.Meta>
+            <Item.Meta>
+              published date: {book.volumeInfo.publishedDate}
+            </Item.Meta>
+          </Fragment>
+        )}
+        <Item.Description>{book.volumeInfo.description}</Item.Description>
+        <br />
+      </Item.Content>
       <a href={`${book.volumeInfo.previewLink}`} className="single_book_link">
         preview here
       </a>
       <a href={`${book.volumeInfo.infoLink}`} className="single_book_link">
         purchase on google here
       </a>
-    </div>
+    </Item>
   );
 };
 
