@@ -3,9 +3,11 @@ import React, { Fragment } from 'react';
 const SingleBook = props => {
   const { book } = props.location.state;
   return (
-    <Fragment>
+    <div className="single_book">
       <h1>{book.volumeInfo.title}</h1>
-      <img src={`${book.volumeInfo.imageLinks.thumbnail}`} alt="" />
+      {book.volumeInfo.imageLinks && (
+        <img src={`${book.volumeInfo.imageLinks.thumbnail}`} alt="" />
+      )}
       {book.volumeInfo.authors && (
         <h3>by: {book.volumeInfo.authors.join(',')}</h3>
       )}
@@ -29,7 +31,7 @@ const SingleBook = props => {
       <a href={`${book.volumeInfo.infoLink}`} className="single_book_link">
         purchase on google here
       </a>
-    </Fragment>
+    </div>
   );
 };
 

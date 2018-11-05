@@ -54,14 +54,12 @@ class Books extends Component {
                       pathname: `/${book.volumeInfo.title}`,
                       state: { book },
                     }}
-                    params={{ book: `${book}` }}
-                    style={{ textDecoration: 'none' }}
                   >
                     <h2>{book.volumeInfo.title}</h2>
-                    {book.volumeInfo.imageLinks && (
-                      <img src={book.volumeInfo.imageLinks.thumbnail} alt="" />
-                    )}
                   </a>
+                  {book.volumeInfo.imageLinks && (
+                    <img src={book.volumeInfo.imageLinks.thumbnail} alt="" />
+                  )}
                   {book.volumeInfo.publisher && (
                     <p>publisher: {book.volumeInfo.publisher}</p>
                   )}
