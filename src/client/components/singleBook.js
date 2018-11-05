@@ -5,7 +5,7 @@ const SingleBook = props => {
   return (
     <Fragment>
       <h1>{book.volumeInfo.title}</h1>
-      <img src={`${book.volumeInfo.imageLinks.thumbnail}`} />
+      <img src={`${book.volumeInfo.imageLinks.thumbnail}`} alt="" />
       {book.volumeInfo.authors && (
         <h3>by: {book.volumeInfo.authors.join(',')}</h3>
       )}
@@ -23,8 +23,12 @@ const SingleBook = props => {
       )}
       <p>{book.volumeInfo.description}</p>
       <br />
-      <a href={`${book.volumeInfo.previewLink}`}>preview here</a>
-      <a href={`${book.volumeInfo.infoLink}`}>purchase on google here</a>
+      <a href={`${book.volumeInfo.previewLink}`} className="single_book_link">
+        preview here
+      </a>
+      <a href={`${book.volumeInfo.infoLink}`} className="single_book_link">
+        purchase on google here
+      </a>
     </Fragment>
   );
 };
