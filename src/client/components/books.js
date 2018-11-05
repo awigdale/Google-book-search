@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Item, Image, Button, Icon } from 'semantic-ui-react';
 
 class Books extends Component {
   state = {
@@ -37,39 +38,54 @@ class Books extends Component {
             onChange={this.handleChange.bind(this)}
             placeholder="Search by author, title, keywords"
           />
-          <button
-            id="submit"
+          <Button
             type="submit"
             onClick={this.handleSubmit.bind(this)}
+            icon
+            inverted
           >
-            search
-          </button>
+            <Icon name="search" color="black" size="large" />
+          </Button>
         </form>
-        {books.length
-          ? books.map(book => {
-              return (
-                <div key={book.id} className="book_container">
-                  <Link
-                    to={{
-                      pathname: `/${book.volumeInfo.title}`,
-                      state: { book },
-                    }}
-                  >
-                    <h2>{book.volumeInfo.title}</h2>
-                  </Link>
-                  {book.volumeInfo.imageLinks && (
-                    <img src={book.volumeInfo.imageLinks.thumbnail} alt="" />
-                  )}
-                  {book.volumeInfo.publisher && (
-                    <p>publisher: {book.volumeInfo.publisher}</p>
-                  )}
-                  {book.volumeInfo.authors && (
-                    <p>by: {book.volumeInfo.authors.join(',')}</p>
-                  )}
-                </div>
-              );
-            })
-          : null}
+        <Item.Group divided>
+          {books.length
+            ? books.map(book => {
+                return (
+                  <Item key={book.id} className="book_container">
+                    {book.volumeInfo.imageLinks && (
+                      <Image
+                        src={book.volumeInfo.imageLinks.thumbnail}
+                        alt=""
+                      />
+                    )}
+                    <Item.Content>
+                      <Item.Header>
+                        <Link
+                          to={{
+                            pathname: `/${book.volumeInfo.title}`,
+                            state: { book },
+                          }}
+                          id="title"
+                        >
+                          {book.volumeInfo.title}
+                        </Link>
+                      </Item.Header>
+                      {book.volumeInfo.publisher && (
+                        <Item.Meta>
+                          publisher: {book.volumeInfo.publisher}
+                        </Item.Meta>
+                      )}
+                      {book.volumeInfo.authors && (
+                        <Item.Meta>
+                          by: {book.volumeInfo.authors.join(',')}
+                        </Item.Meta>
+                      )}
+                    </Item.Content>
+                  </Item>
+                );
+              })
+            : null}
+        </Item.Group>
       </Fragment>
     );
   }
