@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const SingleBook = props => {
   const { book } = props.location.state;
   return (
-    <Fragment>
+    <div className="single_book">
       <h1>{book.volumeInfo.title}</h1>
-      <img src={`${book.volumeInfo.imageLinks.thumbnail}`} />
+      {book.volumeInfo.imageLinks && (
+        <img src={`${book.volumeInfo.imageLinks.thumbnail}`} alt="" />
+      )}
       {book.volumeInfo.authors && (
         <h3>by: {book.volumeInfo.authors.join(',')}</h3>
       )}
@@ -23,9 +25,13 @@ const SingleBook = props => {
       )}
       <p>{book.volumeInfo.description}</p>
       <br />
-      <a href={`${book.volumeInfo.previewLink}`}>preview here</a>
-      <a href={`${book.volumeInfo.infoLink}`}>purchase on google here</a>
-    </Fragment>
+      <a href={`${book.volumeInfo.previewLink}`} className="single_book_link">
+        preview here
+      </a>
+      <a href={`${book.volumeInfo.infoLink}`} className="single_book_link">
+        purchase on google here
+      </a>
+    </div>
   );
 };
 

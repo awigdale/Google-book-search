@@ -1,9 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { PropTypes } from 'react';
 import App from './App';
+import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('App', () => {
+  it('renders without crashing', () => {
+    const wrapper = mount(
+      <Router>
+        <App />
+      </Router>
+    );
+    expect(wrapper.contains(<h1>BOOK SEARCH</h1>));
+  });
 });
