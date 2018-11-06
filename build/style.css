@@ -1,0 +1,54 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+  margin: 5px;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: 800;
+  height: 10vh;
+  padding-top: 2vh;
+  opacity: 0.5;
+  color: #01484f;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 100;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 100;
+}
+
+p {
+  font-size: 12px;
+}
+
+input {
+  width: 75vw;
+  outline: none;
+  height: 7vh;
+  border-radius: 5px;
+  border-style: none;
+  border: 0.5px solid lightgray;
+  padding: 2px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.single_book_link {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  height: 4vh;
+  width: 7vw;
+  border-radius: 5px;
+  background: #35b3bf;
+  padding: 10px;
+  text-decoration: none;
+  margin-right: 10px;
+}
