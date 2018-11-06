@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Item, Image, Button, Icon } from 'semantic-ui-react';
+import { handleGoogleRequest } from '../api.js';
 
 class Books extends Component {
   state = {
@@ -15,16 +15,8 @@ class Books extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    try {
-      const { data } = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${
-          this.state.searchInput
-        }&startIndex=0&maxResults=15`
-      );
-      this.setState({ allBooks: data.items });
-    } catch (err) {
-      console.error(err);
-    }
+    const books = await handleGoogleRequest(this.state.searchInput);
+    this.setState({ allBooks: books });
   }
 
   render() {
