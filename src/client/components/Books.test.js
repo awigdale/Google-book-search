@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Books from './Books';
+import Books from './books';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Books component', () => {

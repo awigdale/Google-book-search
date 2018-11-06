@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import Books from './components/Books.js';
-import SingleBook from './components/SingleBook.js';
+import Books from './components/books.js';
+import SingleBook from './components/singleBook.js';
 
 const Routes = () => {
   return (

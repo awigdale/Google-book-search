@@ -1,5 +1,5 @@
 import React from 'react';
-import SingleBook from './SingleBook';
+import SingleBook from './singleBook';
 import { shallow } from 'enzyme';
 
 describe('Single book', () => {
@@ -13,6 +13,6 @@ describe('Single book', () => {
       />
     );
 
-    expect(wrapper.containsMatchingElement(<h1>harry potter</h1>)).toBeTruthy();
+    expect(wrapper.containsMatchingElement(<h2>harry potter</h2>)).toBeTruthy();
   });
 });
