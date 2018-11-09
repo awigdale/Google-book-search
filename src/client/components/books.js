@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Item, Image, Button, Icon } from 'semantic-ui-react';
-import { handleGoogleRequest } from '../api.js';
+import { handle_GoogleBooks_API_Request } from '../api.js';
 
 class Books extends Component {
   state = {
@@ -15,8 +15,8 @@ class Books extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const books = await handleGoogleRequest(this.state.searchInput);
-    this.setState({ allBooks: books });
+    const books = await handle_GoogleBooks_API_Request(this.state.searchInput);
+    this.setState({ allBooks: books.items });
   }
 
   render() {
