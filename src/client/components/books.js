@@ -7,20 +7,31 @@ class Books extends Component {
   state = {
     allBooks: [],
     searchInput: '',
+    error: false,
   };
 
   handleChange(event) {
     this.setState({ searchInput: event.target.value });
   }
 
+  validate(event) {
+    let characters = /^[0-9a-zA-Z]+$/;
+    if (!this.state.searchInput.match(characters)) {
+      event.preventDefault();
+      return this.setState({ error: true });
+    }
+    this.handleSubmit(event);
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     const books = await handle_GoogleBooks_API_Request(this.state.searchInput);
-    this.setState({ allBooks: books.items });
+    this.setState({ allBooks: books.items, error: false });
   }
 
   render() {
     const books = this.state.allBooks;
+    const error = this.state.error;
     return (
       <Fragment>
         <form>
@@ -32,13 +43,14 @@ class Books extends Component {
           />
           <Button
             type="submit"
-            onClick={this.handleSubmit.bind(this)}
+            onClick={this.validate.bind(this)}
             icon
             inverted
           >
             <Icon name="search" color="black" size="large" />
           </Button>
         </form>
+        {error && <p>please insert valid input</p>}
         <Item.Group divided>
           {books.length
             ? books.map(book => {
