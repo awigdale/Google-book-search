@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Books from './books';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -12,10 +12,10 @@ describe('Books component', () => {
   });
   it('should have a functional submit button', () => {
     wrapper = mount(<Books />);
-    const handleSubmit = spyOn(wrapper.instance(), 'handleSubmit');
+    const validate = spyOn(wrapper.instance(), 'validate');
     wrapper.setState({ searchInput: 'harry potter' });
     wrapper.find('button').simulate('click');
-    expect(handleSubmit).toHaveBeenCalled();
+    expect(validate).toHaveBeenCalled();
   });
   it('renders a list of books', () => {
     wrapper = mount(
@@ -39,5 +39,20 @@ describe('Books component', () => {
       </Router>
     );
     expect(wrapper.find({ to: '/:bookTitle' }));
+  });
+
+  it('validates bad form input', () => {
+    wrapper = mount(<Books />);
+    const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+    wrapper.setState({ searchInput: '%' });
+    wrapper.instance().validate(fakeEvent);
+    expect(wrapper.state('error')).toEqual(true);
+  });
+  it('validates acceptable form input', () => {
+    wrapper = mount(<Books />);
+    const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+    wrapper.setState({ searchInput: 'harry potter' });
+    wrapper.instance().validate(fakeEvent);
+    expect(wrapper.state('error')).toEqual(false);
   });
 });

@@ -15,12 +15,15 @@ class Books extends Component {
   }
 
   validate(event) {
-    let characters = /^[0-9a-zA-Z]+$/;
-    if (!this.state.searchInput.match(characters)) {
-      event.preventDefault();
+    event.preventDefault();
+    let characters = /^[0-9a-zA-Z\s]+$/;
+    if (this.state.searchInput === '') {
       return this.setState({ error: true });
     }
-    this.handleSubmit(event);
+    if (!this.state.searchInput.match(characters)) {
+      return this.setState({ error: true });
+    }
+    return this.handleSubmit(event);
   }
 
   async handleSubmit(event) {
