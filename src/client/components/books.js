@@ -62,7 +62,7 @@ class Books extends Component {
                     {book.volumeInfo.imageLinks && (
                       <Image
                         src={book.volumeInfo.imageLinks.thumbnail}
-                        alt=""
+                        alt={`${book.volumeInfo.title} image`}
                       />
                     )}
                     <Item.Content>
