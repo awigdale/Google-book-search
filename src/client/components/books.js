@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { Item, Image, Button, Icon } from 'semantic-ui-react';
+import { Item, Button, Icon } from 'semantic-ui-react';
 import { handle_GoogleBooks_API_Request } from '../api.js';
+import ReusableBook from './reusableBook.js';
 
 class Books extends Component {
   state = {
@@ -17,7 +17,7 @@ class Books extends Component {
   validate(event) {
     event.preventDefault();
     let characters = /^[0-9a-zA-Z\s]+$/;
-    if (this.state.searchInput === '') {
+    if (this.state.searchInput.trim().length === 0) {
       return this.setState({ error: true });
     }
     if (!this.state.searchInput.match(characters)) {
@@ -59,35 +59,7 @@ class Books extends Component {
             ? books.map(book => {
                 return (
                   <Item key={book.id} className="book_container">
-                    {book.volumeInfo.imageLinks && (
-                      <Image
-                        src={book.volumeInfo.imageLinks.thumbnail}
-                        alt={`${book.volumeInfo.title} image`}
-                      />
-                    )}
-                    <Item.Content>
-                      <Item.Header>
-                        <Link
-                          to={{
-                            pathname: `/${book.volumeInfo.title}`,
-                            state: { book },
-                          }}
-                          id="title"
-                        >
-                          {book.volumeInfo.title}
-                        </Link>
-                      </Item.Header>
-                      {book.volumeInfo.publisher && (
-                        <Item.Meta>
-                          publisher: {book.volumeInfo.publisher}
-                        </Item.Meta>
-                      )}
-                      {book.volumeInfo.authors && (
-                        <Item.Meta>
-                          by: {book.volumeInfo.authors.join(',')}
-                        </Item.Meta>
-                      )}
-                    </Item.Content>
+                    <ReusableBook book={book} />
                   </Item>
                 );
               })
