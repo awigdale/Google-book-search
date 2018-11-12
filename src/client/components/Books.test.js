@@ -41,18 +41,22 @@ describe('Books component', () => {
     expect(wrapper.find({ to: '/:bookTitle' }));
   });
 
-  it('validates bad form input', () => {
+  it('recognizes bad form input', () => {
     wrapper = mount(<Books />);
     const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+    const handleSubmit = spyOn(wrapper.instance(), 'handleSubmit');
     wrapper.setState({ searchInput: '%' });
     wrapper.instance().validate(fakeEvent);
     expect(wrapper.state('error')).toEqual(true);
+    expect(handleSubmit).not.toHaveBeenCalled();
   });
-  it('validates acceptable form input', () => {
+  it('accepts valid form input', () => {
     wrapper = mount(<Books />);
     const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+    const handleSubmit = spyOn(wrapper.instance(), 'handleSubmit');
     wrapper.setState({ searchInput: 'harry potter' });
     wrapper.instance().validate(fakeEvent);
     expect(wrapper.state('error')).toEqual(false);
+    expect(handleSubmit).toHaveBeenCalled();
   });
 });
