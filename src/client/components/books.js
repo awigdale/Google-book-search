@@ -1,26 +1,40 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { Item, Image, Button, Icon } from 'semantic-ui-react';
-import { handleGoogleRequest } from '../api.js';
+import { Item, Button, Icon } from 'semantic-ui-react';
+import { handle_GoogleBooks_API_Request } from '../api.js';
+import ReusableBook from './reusableBook.js';
 
 class Books extends Component {
   state = {
     allBooks: [],
     searchInput: '',
+    error: false,
   };
 
   handleChange(event) {
     this.setState({ searchInput: event.target.value });
   }
 
+  validate(event) {
+    event.preventDefault();
+    let characters = /^[0-9a-zA-Z\s]+$/;
+    if (this.state.searchInput.trim().length === 0) {
+      return this.setState({ error: true });
+    }
+    if (!this.state.searchInput.match(characters)) {
+      return this.setState({ error: true });
+    }
+    return this.handleSubmit(event);
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
-    const books = await handleGoogleRequest(this.state.searchInput);
-    this.setState({ allBooks: books });
+    const books = await handle_GoogleBooks_API_Request(this.state.searchInput);
+    this.setState({ allBooks: books.items, error: false });
   }
 
   render() {
     const books = this.state.allBooks;
+    const error = this.state.error;
     return (
       <Fragment>
         <form>
@@ -32,47 +46,20 @@ class Books extends Component {
           />
           <Button
             type="submit"
-            onClick={this.handleSubmit.bind(this)}
+            onClick={this.validate.bind(this)}
             icon
             inverted
           >
             <Icon name="search" color="black" size="large" />
           </Button>
         </form>
+        {error && <p>please insert valid input</p>}
         <Item.Group divided>
           {books.length
             ? books.map(book => {
                 return (
                   <Item key={book.id} className="book_container">
-                    {book.volumeInfo.imageLinks && (
-                      <Image
-                        src={book.volumeInfo.imageLinks.thumbnail}
-                        alt=""
-                      />
-                    )}
-                    <Item.Content>
-                      <Item.Header>
-                        <Link
-                          to={{
-                            pathname: `/${book.volumeInfo.title}`,
-                            state: { book },
-                          }}
-                          id="title"
-                        >
-                          {book.volumeInfo.title}
-                        </Link>
-                      </Item.Header>
-                      {book.volumeInfo.publisher && (
-                        <Item.Meta>
-                          publisher: {book.volumeInfo.publisher}
-                        </Item.Meta>
-                      )}
-                      {book.volumeInfo.authors && (
-                        <Item.Meta>
-                          by: {book.volumeInfo.authors.join(',')}
-                        </Item.Meta>
-                      )}
-                    </Item.Content>
+                    <ReusableBook book={book} />
                   </Item>
                 );
               })

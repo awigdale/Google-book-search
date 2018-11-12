@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Routes from './routes';
+import ErrorBoundary from './components/errorBoundary';
 
 class App extends Component {
   render() {
@@ -8,7 +9,9 @@ class App extends Component {
         <h1>Google Book Search</h1>
         <hr />
         <br />
-        <Routes />
+        <ErrorBoundary>
+          <Routes />
+        </ErrorBoundary>
       </div>
     );
   }

@@ -12,10 +12,10 @@ describe('Books component', () => {
   });
   it('should have a functional submit button', () => {
     wrapper = mount(<Books />);
-    const handleSubmit = spyOn(wrapper.instance(), 'handleSubmit');
+    const validate = spyOn(wrapper.instance(), 'validate');
     wrapper.setState({ searchInput: 'harry potter' });
     wrapper.find('button').simulate('click');
-    expect(handleSubmit).toHaveBeenCalled();
+    expect(validate).toHaveBeenCalled();
   });
   it('renders a list of books', () => {
     wrapper = mount(
@@ -39,5 +39,24 @@ describe('Books component', () => {
       </Router>
     );
     expect(wrapper.find({ to: '/:bookTitle' }));
+  });
+
+  it('recognizes bad form input', () => {
+    wrapper = mount(<Books />);
+    const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+    const handleSubmit = spyOn(wrapper.instance(), 'handleSubmit');
+    wrapper.setState({ searchInput: '%' });
+    wrapper.instance().validate(fakeEvent);
+    expect(wrapper.state('error')).toEqual(true);
+    expect(handleSubmit).not.toHaveBeenCalled();
+  });
+  it('accepts valid form input', () => {
+    wrapper = mount(<Books />);
+    const fakeEvent = { preventDefault: () => console.log('preventDefault') };
+    const handleSubmit = spyOn(wrapper.instance(), 'handleSubmit');
+    wrapper.setState({ searchInput: 'harry potter' });
+    wrapper.instance().validate(fakeEvent);
+    expect(wrapper.state('error')).toEqual(false);
+    expect(handleSubmit).toHaveBeenCalled();
   });
 });
